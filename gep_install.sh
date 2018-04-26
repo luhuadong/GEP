@@ -6,8 +6,8 @@ MACHINE="gy71ap"
 #MACHINE="pd1707"
 
 #VENDOR="advantech"
-VENDOR="kontron"
-#VENDOR="norco"
+#VENDOR="kontron"
+VENDOR="norco"
 
 GUI="qt4"
 #GUI="qt5"
@@ -320,6 +320,13 @@ InstallGpioSetup() {
 	if [ ! -x ${optpath}/${gpioScript} ]; then
 		cp ${gepConfigPath}/${gpioScript} ${optpath}
 		chmod a+x ${optpath}/${gpioScript}
+	fi
+
+	line=`sed -n '/'${gpioScript}'/=' ${gepConfigPath}/bootstrap_${MACHINE}.sh | tail -n1`
+	if [ -n "${line}" ]; then
+		gpio_cmd="/opt/gpio_set.sh ${MACHINE} ${VENDOR} &"
+		sed -i "${line}a${gpio_cmd}" ${gepConfigPath}/bootstrap_${MACHINE}.sh
+		sed -i ''${line}'d' ${gepConfigPath}/bootstrap_${MACHINE}.sh
 	fi
 }
 
