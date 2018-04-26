@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Seat 
+Exec=/home/root/seat_imx/seat.sh
+Icon=seat
+Terminal=false
+Type=Application
+X-MB-SingleInstance=true
+Comment=Seat Launcher
+StartupNotify=false
