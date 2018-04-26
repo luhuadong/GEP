@@ -467,8 +467,11 @@ InstallBootstrap() {
 	if [ ${VENDOR} = "kontron" -a ${MACHINE} = "gy71ap" ]; then
 		ln -s ${etcpath_abs}/${bootstrap} ${etcpath}/rc5.d/S99gytboot
 	else
-		line=`sed -n '/exit 0/=' ${rclocalModulesPath} | tail -n1`
-		sed -i "${line}i${etcpath}/${bootstrap}" ${rclocalModulesPath}
+		grep "${bootstrap}" ${rclocalModulesPath}
+		if [ $? != 0 ]; then
+			line=`sed -n '/exit 0/=' ${rclocalModulesPath} | tail -n1`
+			sed -i "${line}i${etcpath}/${bootstrap}" ${rclocalModulesPath}
+		fi
 	fi
 
 }
