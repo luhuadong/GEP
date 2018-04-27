@@ -5,9 +5,9 @@
 MACHINE="gy71ap"
 #MACHINE="pd1707"
 
-#VENDOR="advantech"
+VENDOR="advantech"
 #VENDOR="kontron"
-VENDOR="norco"
+#VENDOR="norco"
 
 GUI="qt4"
 #GUI="qt5"
@@ -17,7 +17,7 @@ GUI="qt4"
 
 
 ROOT_DIR="/"
-Script_Ver="1.00.1003"
+Script_Ver="1.00.1004"
 Author_Name=Rudy
 Author_Mail=luhd@gytchina.com
 
@@ -221,6 +221,14 @@ InstallTouchDriver() {
 	which ${touchCalib}
 	if [ $? != 0 ]; then
 		cp ${gepDriversPath}/EETI/${touchCalib} ${usrbinpath}
+		chmod a+x ${usrbinpath}/${touchCalib}
+	fi
+
+	# Special for advantech
+	if [ ${VENDOR} = "advantech" ]; then
+		cp ${gepDriversPath}/EETI/${touchDriver} ${usrbinpath}
+		cp ${gepDriversPath}/EETI/${touchCalib} ${usrbinpath}
+		chmod a+x ${usrbinpath}/${touchDriver}
 		chmod a+x ${usrbinpath}/${touchCalib}
 	fi
 
